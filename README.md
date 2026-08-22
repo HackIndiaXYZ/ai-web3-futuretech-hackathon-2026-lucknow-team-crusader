@@ -1,56 +1,21 @@
-# Crisis Room — Farm Operations AI Dashboard 🚜🧠
+---
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB.svg?logo=react&logoColor=black)](https://vitejs.dev)
-[![Gemini](https://img.shields.io/badge/AI-Google%20Gemini%20Flash%20Lite-8E75B2.svg?logo=google&logoColor=white)](https://ai.google.dev)
+## Overview
+Crisis Room is a real-time, multi-agent AI dashboard built to automate agricultural crisis management. It processes live environmental data and field imagery to diagnose crop anomalies, prescribe localized treatments, and match farmers with relevant government relief schemes.
 
-> Real-time multi-agent AI dashboard automating agricultural crisis management through low-latency vision-language triage, localized resource planning, and government scheme matchmaking.
+The system uses a Vision–Language Model (VLM) pipeline streamed over WebSockets, allowing human operators to observe a team of specialized AI agents collaborating on a solution in real time.
 
 ---
 
-## 📌 Overview
-
-**Crisis Room** processes live field imagery and environmental data to diagnose crop anomalies, prescribe localized treatments, and match farmers with relevant government relief schemes.
-
-The system uses a Vision–Language Model (VLM) pipeline streamed over WebSockets, allowing human operators to observe a team of 5 specialized AI agents collaborating on a solution in real time.
-
----
-
-## ✨ Key Features
-
-* **Multi-Agent AI Chain:** Sequential pipeline of 5 specialized agents that break down complex agricultural incidents into actionable outputs.
-* **Vision–Language Integration:** Field photos are compressed and encoded with Pillow and analyzed alongside sensor data to maximize visual insight while minimizing token overhead.
-* **Live WebSocket Streaming:** React frontend maintains a persistent connection to the FastAPI backend, rendering agents' intermediate states dynamically.
-* **Live Session Analytics:** Tracks active streams, engaged agent nodes, pipeline latency (seconds), and total processed events in real time.
-* **Intelligent Quota Management:** Drops heavy image payloads after the initial vision triage; non-crisis detections bypass heavy downstream LLM calls.
-* **SMS/WhatsApp-Ready Advisories:** Generates concise, human-readable advisories formatted for rapid field dissemination.
+## Key Features
+- Multi-Agent AI Chain: sequential pipeline of 5 specialized agents that break down complex agricultural incidents into actionable outputs.
+- Vision–Language Integration: field photos are compressed and encoded with Pillow and analyzed alongside sensor data to provide visual and contextual insight without unnecessary token usage.
+- Live WebSocket Streaming: React frontend maintains a persistent connection to the FastAPI backend and renders agents' intermediate states dynamically.
+- Live Session Analytics: session-level KPIs (active streams, agent node count, pipeline latency, events processed) shown in the top KPI grid.
+- Intelligent Quota Management: image payloads are dropped after the initial vision step and healthy crops bypass LLM calls to conserve API quota and reduce latency.
+- SMS/WhatsApp-ready advisories: concise, human-readable advisories produced by the Farmer Advisory agent for rapid dissemination.
 
 ---
-
-## 🏗 System Architecture
-
-![System Architecture](assets/architecture-diagram.png)
-
-```mermaid
-flowchart TD
-    A([Trigger: Field Photo / Sensor Alert]) --> B[FastAPI Ingestion & Auth]
-    B --> C[Pillow: Sanitize & Optimize Image]
-    C --> D[VLM: Field Monitor - gemini-flash-lite]
-    D --> E{Issue Detected?}
-    E -- No Issue / Normal --> Z1[Log Status & Update Dashboard]
-    E -- Low Confidence --> Z2[Request Retake via SMS]
-    E -- Verified Issue --> F[Agronomist Agent: Diagnosis & Loss %]
-    F --> G[Resource Agent: Treatment & Inventory]
-    F --> H[Scheme Agent: PMFBY / PMKSY Match]
-    G --> I[Farmer Advisory Agent: Action Plan]
-    H --> I
-    I --> J{Requires Human Review?}
-    J -- High Risk --> K[Operator UI Review Queue]
-    K -->|Approved| L[Notification Dispatch: SMS/WhatsApp]
-    J -- Standard --> L
-    L --> M[(Session Logs & DB)]
-    M --> N[Optional: State Hash Attestation]
 
 ## Agent Chain — Roles & Responsibilities
 When a field incident is triggered (either live or scripted), data flows through the following agents:
