@@ -11,11 +11,6 @@ This is a session-level, real-time view (not an aggregated historical dashboard)
 
 ---
 
-## One-line pitch
-Real-time, multi-agent AI system that ingests live field imagery and sensor streams to diagnose crop issues, recommend treatments, and match farmers to applicable government relief schemes — all visible to operators in a Crisis Room dashboard.
-
----
-
 ## Overview
 Crisis Room is a real-time, multi-agent AI dashboard built to automate agricultural crisis management. It processes live environmental data and field imagery to diagnose crop anomalies, prescribe localized treatments, and match farmers with relevant government relief schemes.
 
@@ -55,20 +50,6 @@ When a field incident is triggered (either live or scripted), data flows through
 5. **Farmer Advisory**
    - Inputs: Resource Agent + Scheme Agent outputs
    - Output: concise, actionable advisory formatted for SMS/WhatsApp and local-language distribution
-
-### Agent Flow (Mermaid)
-
-```mermaid
-flowchart TD
-  A[Trigger: Field Incident / Uploaded Photo] --> B[VLM — Field Monitor]
-  B --> C[Agronomist]
-  C --> D[Resource Agent]
-  D --> E[Scheme Agent]
-  E --> F[Farmer Advisory]
-  F --> G[Dispatch: SMS / WhatsApp / Dashboard]
-  E -- No Crisis --> H[Halt Pipeline & Log]
-```
-
 ---
 
 ## System Architecture
@@ -80,27 +61,6 @@ flowchart TD
 - Persistence: session logs and minimal metadata (on-disk or DB); keep PII off-chain
 - Optional: blockchain attestations for non-identifying hashes and timestamps
 
-### Architecture Diagram (Mermaid)
-
-```mermaid
-flowchart LR
-  subgraph User
-    Operator[Operator Dashboard]
-    FarmerDevice[Farmer Device / Field Camera]
-  end
-
-  FarmerDevice -->|image + sensors| FE[Frontend Upload]
-  Operator -->|view| FE
-  FE -->|WS| API[FastAPI WebSocket Server]
-  API --> AgentsCluster[Agent Pipeline (VLM → Agronomist → ...)]
-  AgentsCluster --> DB[(Session Store / Logs)]
-  AgentsCluster -->|optional| Chain[Blockchain Attestation Service]
-  API -->|REST| ExtAI[Google Gemini API]
-  FE -->|SMS| Gateway[SMS / WhatsApp Gateway]
-
-  classDef infra fill:#f3f4f6,stroke:#ccc;
-  class DB,Chain,AgentsCluster infra;
-```
 
 ---
 
@@ -127,7 +87,6 @@ This grid is intentionally real-time and per-session — it does not present agg
 ---
 
 ## Local Setup — Quick Start
-> NOTE: do not commit API keys or private credentials to the repo.
 
 ### 1) Backend — environment
 Create a `.env` file inside the `/backend` directory with your Gemini API key:
@@ -166,7 +125,7 @@ Default: http://localhost:5173
 ---
 
 ## Example User Journey
-- A field camera detects yellowing patches. The image + moisture sensor data are streamed.
+- A field camera detects yellowing patches. The image data are streamed.
 - VLM identifies irregular spots; Agronomist diagnoses probable fungal infection and estimates 20% loss.
 - Resource Agent recommends localized fungicide and a temporary irrigation schedule.
 - Scheme Agent matches the severity to PMFBY guidelines and suggests claim steps.
@@ -205,25 +164,26 @@ Add screenshots or GIFs in `/frontend/public/assets` or `/assets` and reference 
 
 ---
 
-## Contributors
-- [ADD TEAM MEMBERS — replace with names and roles]
-- Project lead: [ADD DETAILS]
+## 👥 Contributors
+
+* **Abdul Hannan** — Project Lead & Full-Stack Architect (Frontend + Backend)
+* **Swaleha Khatoon** — Research & Ideation Lead
+* **Mahmood Rahman** — UI/UX Design & Presentation Lead
 
 ---
 
 ## Acknowledgements
-Built for the Hackathon Grand Finale. Thanks to mentors, open-source libraries, and farmer communities who inspired this project.
 
+This project was developed as part of the **AI and Web3 Hackathon Grand Finale**. 
+
+We extend our sincere gratitude to:
+* **Hackathon Mentors & Organizers** — for their guidance, technical feedback, and continuous support throughout the event.
+* **Farming Communities** — whose real-world challenges, insights, and resilience inspired the problem statement and practical design of this solution.
+* **Open-Source Community** — for providing the robust foundational frameworks and libraries that powered this build.
 ---
 
-## License
-MIT — see LICENSE file.
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
-
-If you want, I can now:
-1. Create a pull request with these changes instead of committing to `main`.
-2. Add additional placeholder screenshots/GIFs or replace the SVGs with PNG/GIF assets you provide.
-3. Update team/contributor entries and any remaining placeholders.
-
-Which option would you like?
