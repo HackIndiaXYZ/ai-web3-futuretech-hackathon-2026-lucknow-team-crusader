@@ -133,15 +133,6 @@ Default: http://localhost:5173
 
 ---
 
-## Screenshots & Demo
-Add screenshots or GIFs in `/frontend/public/assets` or `/assets` and reference them here:
-
-- Onboarding / Upload: `./assets/screenshot-upload.svg`
-- Crisis Room live stream: `./assets/screenshot-dashboard.svg`
-- Final advisory (SMS): `./assets/screenshot-advisory.svg`
-
----
-
 ## Judging Highlights
 - Observable multi-agent collaboration with live traceability of agent outputs
 - Quota- and cost-aware design that minimizes LLM calls for healthy crops
