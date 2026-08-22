@@ -10,7 +10,7 @@ def classify_leaf_image(image_bytes: bytes) -> dict:
     """Uses Gemini Vision with rate-limit avoidance and explicit JSON forcing."""
     
     api_key = os.getenv("GEMINI_API_KEY")
-    # Swapped to flash-lite-latest to bypass your 3.6-flash daily quota limit!
+
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key={api_key}"
     
     encoded_image = base64.b64encode(image_bytes).decode('utf-8')
