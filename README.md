@@ -1,4 +1,10 @@
 ---
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB.svg?logo=react&logoColor=black)](https://vitejs.dev)
+[![Gemini](https://img.shields.io/badge/AI-Google%20Gemini%20Flash%20Lite-8E75B2.svg?logo=google&logoColor=white)](https://ai.google.dev)
+
+> Real-time multi-agent AI dashboard automating agricultural crisis management through low-latency vision-language triage, localized resource planning, and government scheme matchmaking.
 
 ## Overview
 Crisis Room is a real-time, multi-agent AI dashboard built to automate agricultural crisis management. It processes live environmental data and field imagery to diagnose crop anomalies, prescribe localized treatments, and match farmers with relevant government relief schemes.
